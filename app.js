@@ -9,18 +9,20 @@ var session = require('express-session');
 var multer = require('multer');
 var mongoose = require('mongoose');
 
-global.dbHandle = require('./databse/dbHandle');
+global.dbHandle = require('./database/dbHandle');
 global.db = mongoose.connect("mongodb://localhost:27017/nodedb");
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express({
+var app = express();
+
+app.use(session({
     secret: 'secret',
     cookie: {
-        maxAge: 1000*60*60;
+        maxAge: 1000*60*30
     }
-});
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,17 +34,10 @@ app.set('view engine', 'html');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(multer());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/login', routes);
-app.use('/register', routes);
-app.use('/home', routes);
-app.use('/logout', routes);
 
 app.use(function(req, res, next){
     res.locals.user = req.session.user;
@@ -54,6 +49,10 @@ app.use(function(req, res, next){
     }
     next();
 })
+
+
+app.use('/users', users);
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -70,7 +69,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {
+      message: err.message,
+      error: err
+  });
 });
 
 module.exports = app;

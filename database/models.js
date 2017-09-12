@@ -1,5 +1,5 @@
 module.exports = {
-    users: {
+    user: {
         name: {type:String, required:true},
         password:{type:String, required:true}
     }
