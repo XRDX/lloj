@@ -2,7 +2,11 @@ var router = require('express').Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'LLOJ' });
+    if(!req.session.user){                     
+        res.render('index', {title: 'LLOJ'});
+    } else {
+        res.render("home", {title: 'Home'});         
+    }
 });
 
 /* GET login page. */
@@ -40,6 +44,7 @@ router.post("/login", function(req,res){
 router.get("/register", function(req,res){    
     res.render("register",{title:'User register'});
 })
+
 router.post("/register", function(req,res){ 
     var User = global.dbHandle.getModel('user');
     var uname = req.body.uname;
@@ -50,8 +55,8 @@ router.post("/register", function(req,res){
             req.session.error =  '网络异常错误！';
             console.log(err);
         }else if(doc){ 
-            req.session.error = '用户名已存在！';
             res.sendStatus(500);
+            req.session.error = '用户名已存在！';
         }else{ 
             User.create({                             
                 name: uname,
@@ -61,8 +66,8 @@ router.post("/register", function(req,res){
                     res.sendStatus(500);
                     console.log(err);
                 } else {
-                    req.session.error = '用户名创建成功！';
                     res.sendStatus(200);
+                    req.session.error = '用户名创建成功！';
                 }
             });
         }
@@ -72,10 +77,11 @@ router.post("/register", function(req,res){
 /* GET home page. */
 router.get("/home", function(req, res){ 
     if(!req.session.user){                     
-        req.session.error = "请先登录"
-            res.redirect("/login");                
+        req.session.error = "请先登录";
+        res.redirect("/login");                
+    } else {
+        res.render("home", {title: 'Home'});         
     }
-    res.render("home",{title:'Home'});         
 });
 
 /* GET logout page. */
