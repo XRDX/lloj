@@ -1,0 +1,93 @@
+body {
+  background-color: #CCFFFF;
+}
+
+div#LLOJ {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+div {
+  border-radius: 10px; 
+}
+.box-shadow{  
+  -webkit-box-shadow: 10px 10px 10px #AAD5D5;  
+  -moz-box-shadow: 10px 10px 10px #AAD5D5;  
+  box-shadow: 10px 10px 10px #AAD5D5; 
+}  
+
+div.header {
+  width: 96%;
+  height: 10%;
+  margin: 2%;
+  text-align: center;
+  float: left;
+}
+
+div.left {
+  width: 55%;
+  min-width: 400px;
+  float: left;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+div.right {
+  width: 40%;
+  min-width: 400px;
+  float: left;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+div.description {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 10px;
+  height: 300px;
+  background-color: #66FFFF;
+}
+
+div.test {
+  margin-top: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 10px;
+  height: 300px;
+  background-color: #00FFCC;
+}
+
+div.third {
+  float: left;
+  width: 30%;
+  padding: 5px;
+}
+
+.CodeMirror {
+  font-size: 20px
+}
+
+button {
+  background-color: #00CCFF;
+  border-radius: 10px; 
+  border: none; 
+}
+
+button.previous {
+  float: left;
+  width: 100px;
+  height: 30px;
+}
+
+button.next {
+  float: right;
+  width: 100px;
+  height: 30px;
+}
+
+.right button {
+  width: 200px;
+  height: 60px;
+  margin-top: 20px;
+  float: right;
+}
