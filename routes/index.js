@@ -3,9 +3,9 @@ var router = require('express').Router();
 /* GET home page. */
 router.get('/', function(req, res) {
     if(!req.session.user){                     
-        res.render('index', {title: 'LLOJ'});
+        res.redirect('/login');
     } else {
-        res.render("home", {title: 'Home'});         
+        res.redirect('/lloj');
     }
 });
 
@@ -15,7 +15,6 @@ router.get("/login", function(req, res){
 });
 
 router.post("/login", function(req,res){                        
-    console.log("here");
     var User = global.dbHandle.getModel('user');  
     var uname = req.body.uname;                
     User.findOne({name:uname},function(err,doc){   
@@ -51,12 +50,12 @@ router.post("/register", function(req,res){
     var upwd = req.body.upwd;
     User.findOne({name: uname},function(err,doc){   
         if(err){ 
-            res.sendStatus(500);
             req.session.error =  '网络异常错误！';
+            res.sendStatus(500);
             console.log(err);
         }else if(doc){ 
-            res.sendStatus(500);
             req.session.error = '用户名已存在！';
+            res.sendStatus(500);
         }else{ 
             User.create({                             
                 name: uname,
@@ -66,21 +65,22 @@ router.post("/register", function(req,res){
                     res.sendStatus(500);
                     console.log(err);
                 } else {
-                    res.sendStatus(200);
+                    req.session.user = doc;
                     req.session.error = '用户名创建成功！';
+                    res.sendStatus(200);
                 }
             });
         }
     });
 });
 
-/* GET home page. */
-router.get("/home", function(req, res){ 
+/* GET lloj page. */
+router.get("/lloj", function(req, res){ 
     if(!req.session.user){                     
         req.session.error = "请先登录";
         res.redirect("/login");                
     } else {
-        res.render("home", {title: 'Home'});         
+        res.render("lloj", {title: 'LLOJ'});         
     }
 });
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLOJ</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    
+    <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/theme/ambiance.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/addon/lint/lint.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/lloj.css">
+
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>    
+    <script src="https://cdn.bootcss.com/jshint/2.9.5/jshint.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.29.0/codemirror.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.29.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/lint/lint.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/lint/javascript-lint.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/show-hint.min.js"></script>    
+    <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/javascript-hint.min.js"></script>
+
+    <script src="lib/data.js"></script>
+    <script src="lib/lloj.js"></script>
+</head>
+<body onload="main()">
+<div id="LLOJ">
+    <div class="header">
+        <p>Welcome: <%- user.name %> <a href="/logout">登出</a> </p>
+ 
+        <button v-if="id>0" v-on:click="previous" class="previous box-shadow">上一题</button>
+        <button v-if="id<bank.length-1" v-on:click="next" class="next box-shadow">下一题</button>
+         <h1>{{ bank[id].title }}</h1>
+    </div>
+    <div class="left">
+        <div class="description box-shadow">
+            <h3>题目描述</h3>
+            <p v-for="desc in bank[id].description">{{ desc }}</p>
+        </div>
+        <div class="test box-shadow">
+            <h3>测试用例</h3>
+            <div>
+                <div class="third">
+                    <strong>输入值</strong>
+                </div>
+                <div class="third">
+                    <strong>期望值</strong>
+                </div>
+                <div class="third">
+                    <strong>输出值</strong>
+                </div>                
+            </div>
+            <div v-for="test in bank[id].tests">
+                <div class="third">
+                    {{ test.x1 }}
+                    <z v-if="test.x2">, {{ test.x2 }} </z>
+                </div>
+                <div class="third">                
+                    {{ test.y }}
+                </div>
+                <div class="third">
+                    <v v-if="test.ret != 'running'">{{ test.ret }}</v>
+                    <i v-if="null == test.ret" class="fa fa-question green"></i>
+                    <i v-else-if="'running'== test.ret" class="fa fa-spinner green fa-spin"></i>
+                    <i v-else-if="test.y== test.ret" class="fa fa-check green"></i>
+                    <i v-else class="fa fa-times red"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="right">
+        <div class="box-shadow">
+            <textarea id="Editor">{{ bank[id].default_code }}</textarea>
+        </div>
+        <button v-on:click="run" class="box-shadow">提交</button>
+    </div>
+</div>
+</html>
