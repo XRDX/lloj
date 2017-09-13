@@ -1,5 +1,5 @@
 body {
-  background-color: #CCFFFF;
+  background-color: #F2F2F2;
 }
 
 div#LLOJ {
@@ -11,9 +11,9 @@ div {
   border-radius: 10px; 
 }
 .box-shadow{  
-  -webkit-box-shadow: 10px 10px 10px #AAD5D5;  
-  -moz-box-shadow: 10px 10px 10px #AAD5D5;  
-  box-shadow: 10px 10px 10px #AAD5D5; 
+  -webkit-box-shadow: 10px 10px 10px #AAAAAA;  
+  -moz-box-shadow: 10px 10px 10px #AAAAAA;  
+  box-shadow: 10px 10px 10px #AAAAAA; 
 }  
 
 div.header {
@@ -25,27 +25,43 @@ div.header {
 }
 
 div.left {
-  width: 55%;
-  min-width: 400px;
-  float: left;
-  margin-left: 2%;
-  margin-top: 2%;
+    width: 95%;
+    float: left;
+    margin-left: 2%;
+    margin-top: 2%;
 }
 
 div.right {
-  width: 40%;
-  min-width: 400px;
-  float: left;
-  margin-left: 2%;
-  margin-top: 2%;
+    width: 95%;
+    float: left;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+@media screen and (min-width: 1024px) {
+    div.left {
+        width: 50%;
+        float: left;
+        margin-left: 2%;
+        margin-top: 2%;
+    }
+
+    div.right {
+        width: 45%;
+        float: left;
+        margin-left: 2%;
+        margin-top: 2%;
+    }
+
+
 }
 
 div.description {
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 10px;
-  height: 300px;
-  background-color: #66FFFF;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5px;
+    height: 300px;
+    background-color: #FFFFFF;
 }
 
 div.test {
@@ -54,7 +70,7 @@ div.test {
   padding-right: 5%;
   padding-top: 10px;
   height: 300px;
-  background-color: #00FFCC;
+  background-color: #FFFFFF;
 }
 
 div.third {
@@ -68,7 +84,7 @@ div.third {
 }
 
 button {
-  background-color: #00CCFF;
+  background-color: #99FFFF;
   border-radius: 10px; 
   border: none; 
 }
@@ -90,4 +106,12 @@ button.next {
   height: 60px;
   margin-top: 20px;
   float: right;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }

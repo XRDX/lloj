@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/theme/ambiance.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/addon/lint/lint.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/show-hint.min.css">
-
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="lib/lloj.css">
 
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>    
@@ -58,10 +58,11 @@
                     {{ test.y }}
                 </div>
                 <div class="third">
-                    {{ test.ret }}
-                    <img v-if="null == test.ret" src="images/q.png">
-                    <img v-else-if="test.ret == test.y" src="images/yes.png">
-                    <img v-else src="images/no.png">
+                    <v v-if="test.ret != 'running'">{{ test.ret }}</v>
+                    <i v-if="null == test.ret" class="fa fa-question green"></i>
+                    <i v-else-if="'running'== test.ret" class="fa fa-spinner green fa-spin"></i>
+                    <i v-else-if="test.y== test.ret" class="fa fa-check green"></i>
+                    <i v-else class="fa fa-times red"></i>
                 </div>
             </div>
         </div>

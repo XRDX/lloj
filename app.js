@@ -18,8 +18,11 @@ var users = require('./routes/users');
 var app = express();
 
 app.use(session({
-    secret: 'secret',
+    secret: 'secret xrd',
+    resave: false,
+    saveUninitialized: true,
     cookie: {
+        secure: true,
         maxAge: 1000*60*30
     }
 }));

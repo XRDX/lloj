@@ -31,8 +31,8 @@ var app = new Vue({
             }
 
             for(var i=0; i<tests.length; i++){
-                tests[i].ret = null;
-                setTimeout(update, i*500);
+                tests[i].ret = "running";
+                setTimeout(update, i*666);
             }
         },
         next: function(){
