@@ -113,7 +113,7 @@ module.exports = {
     },
     8: { title: '世纪难题',
         description: [
-            "天是2017年，是21世纪。21世纪包含从2000年到2099年共100个年份。给出一个年份，返回是哪一个世纪" 
+            "天是2017年，是21世纪。21世纪包含从2000年到2099年共100个年份。给出一个年份，返回是哪一个世纪" ,
             "写一个函数century(x)，来判断年份"
         ],
         default_code: "function century(x){\n    \/\/write your code here.\n    \n}\n",
