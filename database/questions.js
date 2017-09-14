@@ -82,6 +82,47 @@ module.exports = {
             {x1: 13, x2: 35, y: 24, ret:null}
         ],
         function_name: "average"            
+    },
+    6: { title: '比较',
+        description: [
+            "给出两个数，返回其中较大的那个数字", 
+            "函数名称命名为max，带两个参数"
+        ],
+        default_code: "function max(x1, x2){\n    \/\/write your code here.\n    \n}\n",
+        tests:[
+            {x1: 4,  x2: 4, y: 4,  ret:null},
+            {x1: 7,  x2: 5, y: 7,  ret:null},
+            {x1: 9,  x2: 16, y: 16, ret:null},
+            {x1: 13, x2: 35, y: 35, ret:null}
+        ],
+        function_name: "max"            
+    },
+    7: { title: '问好',
+        description: [
+            '对于输入的每个人名，都进行问好。如输入为"Vic"，输出为"Hello, Vic"', 
+            "函数名称命名为sayHello，带1个参数"
+        ],
+        default_code: "function sayHello(name){\n    \/\/write your code here.\n    \n}\n",
+        tests:[
+            {x1: "Vic", y: "Hello, Vic",  ret:null},
+            {x1: "Aaron", y: "Hello, Aaron",  ret:null},
+            {x1: "Leo", y: "Hello, Leo",  ret:null},
+            {x1: "Nina", y: "Hello, Nina",  ret:null}
+        ],
+        function_name: "sayHello"        
+    },
+    8: { title: '世纪难题',
+        description: [
+            "天是2017年，是21世纪。21世纪包含从2000年到2099年共100个年份。给出一个年份，返回是哪一个世纪" 
+            "写一个函数century(x)，来判断年份"
+        ],
+        default_code: "function century(x){\n    \/\/write your code here.\n    \n}\n",
+        tests:[
+        {x1: 2017,  y: 21,  ret:null},
+        {x1: 2000,  y: 21,  ret:null},
+        {x1: 2199, y: 22, ret:null},
+            {x1: 1013, y: 11, ret:null}
+        ],
+        function_name: "century"            
     }
-
 }
