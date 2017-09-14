@@ -4,11 +4,11 @@ var app = new Vue({
     el: '#LLOJ',
     data: {
         q_id: 0,
-        question: question_bank[0]
+        question: {}
     },
     created: function(){
-        this.q_id = 0;
-        this.question = question_bank[this.q_id];
+        this.q_id = document.getElementById("q_id").innerText;
+        this.getQuestion();
         this.getUserCode();
     },
     methods: {
@@ -39,43 +39,32 @@ var app = new Vue({
                 setTimeout(update, i*666);
             }
         },
-        next: function(){
-            this.q_id += 1;
-            this.question = question_bank[this.q_id];
-            Editor.setValue(this.question.default_code);
-            this.getUserCode();
-        },
-        previous: function(){
-            this.q_id -= 1;
-            this.question = question_bank[this.q_id];
-            Editor.setValue(this.question.default_code);
-            this.getUserCode();
-        },
         getUserCode: function(){
-            $.ajax({ 
-                url:'/oj/' + this.q_id,
-                type:'get',
-                success: function(res, status){ 
-                    if(res && res.text)
-                        Editor.setValue(res.text);
-                },
-                error: function(res, status){ 
-                    console.log(res);
-                }
+            this.$http.get( '/answer/' + this.q_id).then(function(res){ 
+                if(res && res.body && res.body.text)
+                    Editor.setValue(res.body.text);
+            }, function(res){
+                console.log(res);
             });
         },
         postUserCode: function(){
             var code = Editor.getValue();
             var data = {"q_id": this.q_id, "text": code};
-            $.ajax({ 
-                url:'/oj',
-                type:'post',
-                data: data,
-                error: function(res, status){ 
-                    console.log(res);
+            this.$http.post('/answer', data).then(function(res){
+                // success
+            }, function(res){
+                console.log(res);
+            })
+        },
+        getQuestion: function(){
+            this.$http.get('/question/' + this.q_id).then(function(res){
+                if(res){
+                    this.question = res.body;
+                    Editor.setValue(this.question.default_code);
                 }
-            });
- 
+            }, function(res){
+                console.log(res);
+            })
         }
     }
 })

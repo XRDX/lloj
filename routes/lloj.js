@@ -2,21 +2,34 @@ var router = require('express').Router();
 var models = require("../database/models");
 var User = models.User;
 var Answer = models.Answer;
+var Questions = require("../database/questions");
 
-/* GET lloj page. */
+/* GET lloj index. */
 router.get("/lloj", function(req, res){ 
     if(!req.session.user){                     
         req.session.error = "请先登录";
         res.redirect("/login");                
     } else {
-        res.render("lloj", {title: 'LLOJ'});         
+        res.render("questions", {title: 'Question List', questions: Questions});         
     }
 });
 
+/* GET lloj page */
+router.get("/lloj/:id", function(req, res){ 
+    var q_id = req.params["id"];
+    var title = Questions[q_id].title;
+    res.render("lloj", {title: title, q_id: q_id});         
+});
 
-router.get("/oj/:id", function(req, res){
-    var user = req.session.user;
-    var uname = user.name;
+/* question */
+router.get("/question/:id", function(req, res){
+    var q_id = req.params["id"];
+    res.status(200).json(Questions[q_id]);
+})
+
+/* get user code */
+router.get("/answer/:id", function(req, res){
+    var uname = req.session.user.name;
 
     User.findOne({name: uname},function(err,user){
 
@@ -40,7 +53,8 @@ router.get("/oj/:id", function(req, res){
     });
 });
 
-router.post("/oj", function(req, res){
+/* post user code */
+router.post("/answer", function(req, res){
     var user = req.session.user;
     var uname = user.name;
 

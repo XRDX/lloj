@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LLOJ</title>
+    <title><%- title %></title>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width initial-scale=1'>
     
@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/addon/lint/lint.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/show-hint.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="lib/lloj.css">
-
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/lib/lloj.css">
 
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>    
+    <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
+
     <script src="https://cdn.bootcss.com/jshint/2.9.5/jshint.min.js"></script>
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/codemirror.min.js"></script>
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/mode/javascript/javascript.min.js"></script>
@@ -23,17 +23,13 @@
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/show-hint.min.js"></script>    
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/javascript-hint.min.js"></script>
 
-    <script src="lib/data.js"></script>
-    <script src="lib/lloj.js"></script>
+    <script src="/lib/lloj.js"></script>
 </head>
 <body onload="main()">
 <div id="LLOJ">
     <div class="header">
-        <p>Welcome: <%- user.name %> <a href="/logout">登出</a> </p>
- 
-        <button v-if="q_id>0" v-on:click="previous" class="previous box-shadow">上一题</button>
-        <button v-if="q_id<question_bank.length-1" v-on:click="next" class="next box-shadow">下一题</button>
-         <h1>{{ question.title }}</h1>
+        <a href="/lloj" class="left">返回列表</a>
+        <h1>{{ question.title }}</h1>
     </div>
     <div class="left">
         <div class="description box-shadow">
@@ -78,5 +74,6 @@
         </div>
         <button v-on:click="run" class="box-shadow">提交</button>
     </div>
+    <p id="q_id" style="display:none"><%- q_id %></p>
 </div>
 </html>
