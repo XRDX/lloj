@@ -1,5 +1,6 @@
 var question_bank = [
     {
+        id: 0,
         title: '编程练习I: 加法运算',
         description: [
             "观察下面的输入及输出值，可以看出输出值是输入值的和，下面我们就来写一个函数add(x1,x2)，使得函数的返回值等于输入值的和。", 
@@ -15,6 +16,7 @@ var question_bank = [
         function_name: "add"
     },
     {
+        id: 1,
         title: '编程练习II: 减法运算',
         description: [
             "观察下面的输入及输出值，可以看出输出值是第一个数减去第二个数的值，下面我们就来写一个函数sub(x1,x2)，使得函数的返回值等于输入值的差。", 
@@ -30,6 +32,7 @@ var question_bank = [
         function_name: "sub"            
     },
     {
+        id: 2,
         title: '编程练习III: 乘法运算',
         description: [
             "观察下面的输入及输出值，可以看出输出值是输入值的积，下面我们就来写一个函数mul(x1,x2)，使得函数的返回值等于输入值的乘积。", 
@@ -45,6 +48,7 @@ var question_bank = [
         function_name: "mul"            
     },
     {
+        id: 3,
         title: '水仙花数',
         description: [
             "如果一个三位数的百分位、十分位、个位的三次方之和等于这个三位数，那么这个数就称为水仙花数", 
@@ -60,6 +64,7 @@ var question_bank = [
         function_name: "isNarcissusNumber"            
     },
     {
+        id: 4,
         title: '质数',
         description: [
             "如果一个数只能被1和自身整除，那么这个数就是一个质数", 
