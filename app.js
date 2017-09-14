@@ -9,7 +9,6 @@ var session = require('express-session');
 var multer = require('multer');
 var mongoose = require('mongoose');
 
-global.dbHandle = require('./database/dbHandle');
 global.db = mongoose.connect("mongodb://localhost:27017/nodedb");
 
 var routes = require('./routes/index');
@@ -54,6 +53,7 @@ app.use(function(req, res, next){
 
 
 app.use('/users', users);
+app.use('/oj', routes);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
