@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="lib/lloj.css">
 
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>    
     <script src="https://cdn.bootcss.com/jshint/2.9.5/jshint.min.js"></script>
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/codemirror.min.js"></script>
@@ -29,14 +31,14 @@
     <div class="header">
         <p>Welcome: <%- user.name %> <a href="/logout">登出</a> </p>
  
-        <button v-if="id>0" v-on:click="previous" class="previous box-shadow">上一题</button>
-        <button v-if="id<bank.length-1" v-on:click="next" class="next box-shadow">下一题</button>
-         <h1>{{ bank[id].title }}</h1>
+        <button v-if="q_id>0" v-on:click="previous" class="previous box-shadow">上一题</button>
+        <button v-if="q_id<question_bank.length-1" v-on:click="next" class="next box-shadow">下一题</button>
+         <h1>{{ question.title }}</h1>
     </div>
     <div class="left">
         <div class="description box-shadow">
             <h3>题目描述</h3>
-            <p v-for="desc in bank[id].description">{{ desc }}</p>
+            <p v-for="desc in question.description">{{ desc }}</p>
         </div>
         <div class="test box-shadow">
             <h3>测试用例</h3>
@@ -51,7 +53,7 @@
                     <strong>输出值</strong>
                 </div>                
             </div>
-            <div v-for="test in bank[id].tests">
+            <div v-for="test in question.tests">
                 <div class="third">
                     {{ test.x1 }}
                     <z v-if="test.x2">, {{ test.x2 }} </z>
@@ -72,7 +74,7 @@
     </div>
     <div class="right">
         <div class="box-shadow">
-            <textarea id="Editor">{{ bank[id].default_code }}</textarea>
+            <textarea id="Editor">{{ question.default_code }}</textarea>
         </div>
         <button v-on:click="run" class="box-shadow">提交</button>
     </div>

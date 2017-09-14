@@ -3,24 +3,28 @@ function main(){
 var app = new Vue({
     el: '#LLOJ',
     data: {
-        id: 0,
-        bank: question_bank
+        q_id: 0,
+        question: question_bank[0]
+    },
+    created: function(){
+        this.q_id = 0;
+        this.question = question_bank[this.q_id];
+        this.getUserCode();
     },
     methods: {
         run: function(){
-            var data = this.bank[this.id];
-
             var code = Editor.getValue();
+            this.postUserCode();
             var f = function(){};
             try {
               eval(code); // Dangerous!!!
-              f = eval(data.function_name);
+              f = eval(this.question.function_name);
             }
             catch(err) {
               console.log("Error: " + err.message);
             }
             
-            var tests = data.tests;
+            var tests = this.question.tests;
             var index = 0;
 
             // Asynchronous
@@ -36,16 +40,42 @@ var app = new Vue({
             }
         },
         next: function(){
-            this.bank[this.id].user_code = Editor.getValue();
-            this.id += 1;
-            var data = this.bank[this.id]
-            Editor.setValue(data.user_code || data.default_code);
+            this.q_id += 1;
+            this.question = question_bank[this.q_id];
+            Editor.setValue(this.question.default_code);
+            this.getUserCode();
         },
         previous: function(){
-            this.bank[this.id].user_code = Editor.getValue();
-            this.id -= 1;
-            var data = this.bank[this.id]
-            Editor.setValue(data.user_code || data.default_code);
+            this.q_id -= 1;
+            this.question = question_bank[this.q_id];
+            Editor.setValue(this.question.default_code);
+            this.getUserCode();
+        },
+        getUserCode: function(){
+            $.ajax({ 
+                url:'/oj/' + this.q_id,
+                type:'get',
+                success: function(res, status){ 
+                    if(res && res.text)
+                        Editor.setValue(res.text);
+                },
+                error: function(res, status){ 
+                    console.log(res);
+                }
+            });
+        },
+        postUserCode: function(){
+            var code = Editor.getValue();
+            var data = {"q_id": this.q_id, "text": code};
+            $.ajax({ 
+                url:'/oj',
+                type:'post',
+                data: data,
+                error: function(res, status){ 
+                    console.log(res);
+                }
+            });
+ 
         }
     }
 })
@@ -65,4 +95,5 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
 });
 
 Editor.setSize('auto', 640);
+
 }
