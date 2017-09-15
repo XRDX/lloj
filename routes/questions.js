@@ -1,13 +1,14 @@
 var router = require('express').Router();
 var Question = require('../controllers/questions.js');
 
-// APIs
-router.get('/js/:id', Question.get_js);
-router.get('/js',    Question.all_js);
-
-router.get('/:id', Question.get);
-
+// Page
+router.get('/', Question.index);
+router.get('/:id/show', Question.show);
 router.get('/:id/edit', Question.edit)
-router.post('/:id/save', Question.post);
+
+// APIs
+router.get('/api/:id/get', Question.get)
+router.get('/api/list', Question.list)
+router.post('/api/:id/save', Question.update);
 
 module.exports = router;

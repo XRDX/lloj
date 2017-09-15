@@ -1,7 +1,8 @@
-var Answer = require("../controllers/answers.js");
+var answer = require("../controllers/answers.js");
 var router = require('express').Router();
 
-router.get("/:id",  Answer.get);
-router.post("/",    Answer.post);
+// apis
+router.get("/api/:id/get",  answer.get);
+router.post("/api",    answer.post);
 
 module.exports = router;

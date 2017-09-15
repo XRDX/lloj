@@ -10,7 +10,6 @@ module.exports = {
         User.findOne({name: uname},function(err,user){
 
             var q_id = req.params["id"];
-
             Answer.findOne({q_id: q_id, user_id: user._id}, function(err, answer){
                 if(err){ 
                     req.session.error =  '网络异常错误！';

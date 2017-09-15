@@ -1,5 +1,3 @@
-function main(){
-
 var app = new Vue({
     el: '#LLOJ',
     data: {
@@ -17,7 +15,7 @@ var app = new Vue({
         postQuestion: function(){
             this.question.default_code = Editor.getValue();
             console.log(this.question);
-            this.$http.post('/question/' + this.question.id + "/save", 
+            this.$http.post('/question/api/' + this.question.id + "/save", 
                     this.question).then(function(res){
                 // success
             }, function(res){
@@ -31,7 +29,7 @@ var app = new Vue({
             }
         },
         getQuestion: function(){
-            this.$http.get('/question/' + this.q_id ).then(function(res){
+            this.$http.get('/question/api/' + this.q_id + '/get').then(function(res){
                 if(res){
                     if(res.body == null){
                         this.question = {};
@@ -78,5 +76,3 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
 });
 
 Editor.setSize('auto', 640);
-
-}

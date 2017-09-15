@@ -1,7 +1,5 @@
-function main(){
-
 var app = new Vue({
-    el: '#LLOJ',
+    el: '#Question',
     data: {
         q_id: 0,
         question: {}
@@ -17,30 +15,36 @@ var app = new Vue({
             this.postUserCode();
             var f = function(){};
             try {
-              eval(code); // Dangerous!!!
-              f = eval(this.question.function_name);
+                eval(code); // Dangerous!!!
+                f = eval(this.question.function_name);
             }
             catch(err) {
-              console.log("Error: " + err.message);
+                console.log("Error: " + err.message);
             }
-            
+
             var tests = this.question.tests;
             var index = 0;
 
             // Asynchronous
             function update(){
                 var test = tests[index];
-                test.ret = f(test.x1, test.x2);
+                console.log(test);
+                test.ret = f(test.x);
+                Vue.set(tests, index, test); // update vue
                 index++;
             }
 
-            for(var i=0; i<tests.length; i++){
-                tests[i].ret = "running";
+            for(var i in tests){
+                test = tests[i];
+                test.ret = "running";
+                Vue.set(tests, i, test); // update vue
+                console.log(test);
+                i++;
                 setTimeout(update, i*666);
             }
         },
         getUserCode: function(){
-            this.$http.get( '/answer/' + this.q_id).then(function(res){ 
+            this.$http.get( '/answer/api/' + this.q_id + "/get").then(function(res){ 
                 if(res && res.body && res.body.text)
                     Editor.setValue(res.body.text);
             }, function(res){
@@ -50,14 +54,15 @@ var app = new Vue({
         postUserCode: function(){
             var code = Editor.getValue();
             var data = {"q_id": this.q_id, "text": code};
-            this.$http.post('/answer', data).then(function(res){
+            this.$http.post('/answer/api', data).then(function(res){
+                console.log("saved!");
                 // success
             }, function(res){
                 console.log(res);
             })
         },
         getQuestion: function(){
-            this.$http.get('/question/' + this.q_id).then(function(res){
+            this.$http.get('/question/api/' + this.q_id + "/get").then(function(res){
                 if(res){
                     this.question = res.body;
                     Editor.setValue(this.question.default_code);
@@ -74,9 +79,9 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
     styleActiveLine: true,
     indentUnit: 4,
     theme: "ambiance",
-    
+
     mode: {name: "javascript", globalVars: true},
-    
+
     extraKeys: {"Tab": "autocomplete"},
     gutters: ["CodeMirror-lint-markers"],
     lint: true
@@ -84,5 +89,3 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
 });
 
 Editor.setSize('auto', 640);
-
-}
