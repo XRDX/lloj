@@ -11,7 +11,15 @@ module.exports = {
     show: function(req, res){
         var q_id = req.params["id"];
         Question.findOne({id: q_id}, function(err, qstn){
-            res.render("question", {title: qstn.title, q_id: q_id});         
+            if(err){
+                console.log(err);
+                res.sendStatus(500);
+            }
+
+            if(qstn)
+                res.render("question", {title: qstn.title, q_id: q_id});         
+            else
+                res.sendStatus(500);
         });
     },
 
