@@ -78,7 +78,7 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
     lineNumbers: true,
     styleActiveLine: true,
     indentUnit: 4,
-    theme: "ambiance",
+    //theme: "ambiance",
 
     mode: {name: "javascript", globalVars: true},
 

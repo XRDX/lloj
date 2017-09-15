@@ -3,6 +3,7 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width initial-scale=1'>
+    <title><%- title %></title>
     
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/codemirror.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/codemirror/5.29.0/theme/ambiance.min.css">
@@ -21,13 +22,11 @@
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/lint/javascript-lint.min.js"></script>
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/show-hint.min.js"></script>    
     <script src="https://cdn.bootcss.com/codemirror/5.29.0/addon/hint/javascript-hint.min.js"></script>
-
 </head>
 <body>
 <div id="LLOJ">
     <div class="header">
         <h1>问题设计页面</h1>
-        <input v-model="question.id"></input>
         <input v-model="question.title"></input>
         <input v-model="question.function_name"></input>
     </div>

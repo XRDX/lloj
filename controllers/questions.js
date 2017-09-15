@@ -17,7 +17,7 @@ module.exports = {
 
     edit: function(req, res){
         var q_id = req.params["id"];
-        res.render("question_edit", {q_id: q_id})
+        res.render("question_edit", {title: "修改问题", q_id: q_id})
     },
 
         // apis

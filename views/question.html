@@ -27,13 +27,15 @@
 <body>
 <div id="Question">
     <div class="header">
-        <a href="/question" class="left">返回列表</a>
+        <a href="/question" class="left">
+            <i class="fa fa-home fa-2x"></i>
+        </a>
         <h1>{{ question.title }}</h1>
     </div>
     <div class="left">
         <div class="description box-shadow">
             <h3>题目描述</h3>
-            <p>{{ question.description }}</p>
+            <textarea readonly="readonly">{{ question.description }}</textarea>
         </div>
         <div class="test box-shadow">
             <h3>测试用例</h3>

@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#LLOJ',
     data: {
-        q_id: 0,
+        q_id: null,
         question: {}
     },
     created: function(){
@@ -26,11 +26,12 @@ var app = new Vue({
                 test.x = this.tryConvert(test.x);
                 test.y = this.tryConvert(test.y);
             }
+            this.question.id = this.q_id;
         },
         saveQuestion: function(){
             this.question.default_code = Editor.getValue();
             this.beforeSave();
-            this.$http.post('/question/api/' + this.question.id + "/save", 
+            this.$http.post('/question/api/' + this.q_id + "/save", 
                     this.question).then(function(res){
                 alert("Save successfully!");
             }, function(res){
@@ -78,7 +79,7 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
     lineNumbers: true,
     styleActiveLine: true,
     indentUnit: 4,
-    theme: "ambiance",
+    // theme: "ambiance",
     
     mode: {name: "javascript", globalVars: true},
     
