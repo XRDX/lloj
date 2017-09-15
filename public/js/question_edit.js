@@ -10,14 +10,29 @@ var app = new Vue({
     },
     methods: {
         run: function(){
-            this.postQuestion();
+            this.saveQuestion();
         },
-        postQuestion: function(){
+        tryConvert: function(str){
+            try {
+                return JSON.parse(str);
+            } catch (err){
+                return str;
+            }
+        },
+        beforeSave: function(){
+            var q = this.question;
+            for(var i in q.tests){
+                test = q.tests[i];
+                test.x = this.tryConvert(test.x);
+                test.y = this.tryConvert(test.y);
+            }
+        },
+        saveQuestion: function(){
             this.question.default_code = Editor.getValue();
-            console.log(this.question);
+            this.beforeSave();
             this.$http.post('/question/api/' + this.question.id + "/save", 
                     this.question).then(function(res){
-                // success
+                alert("Save successfully!");
             }, function(res){
                 console.log(res);
             })
@@ -45,8 +60,6 @@ var app = new Vue({
                     q.tests = q.tests || [];
                     q.hide_tests = q.hide_tests || [];
 
-                    console.log(q.description);
-
                     this.makeArray(q.tests, {}, 4);
                     this.makeArray(q.hide_tests, {}, 5);
 
@@ -72,7 +85,6 @@ var Editor = CodeMirror.fromTextArea(document.getElementById("Editor"), {
     extraKeys: {"Tab": "autocomplete"},
     gutters: ["CodeMirror-lint-markers"],
     lint: true
-
 });
 
 Editor.setSize('auto', 640);
