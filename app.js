@@ -48,7 +48,7 @@ app.use(function(req, res, next){
         res.locals.message = '<div class="alert alert-danger" style="margin-bottom:20px;color:red;">' + err + '</div>';
     }
     next();
-})
+});
 
 // routers
 route(app);
